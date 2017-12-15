@@ -59,5 +59,22 @@ def splitArray(nums,target=0,start=0):
     return splitArray(nums,target=target+nums[start],start= start+1)or splitArray(nums,target=target,start=start+1)
 print (splitArray([2,5,3]))
 
-def splitOdd10(nums,target=0,start=0)
+def splitOdd10(nums,target=0,start=0):
+    if target % 10 == 0 and (sum(array)-target) % 2 == 1:
+        return True
+    if start >= len(array):
+        return False
+    return splitOdd10(array, target=target+array[start], start=start+1) or splitOdd10(array, target=target, start=start + 1)
+print(splitOdd10([5,7,2,3]))
 
+def split53(array, target=0, start=0):
+    if target == sum(array)-target:
+        return True
+    if start >= len(array):
+        return False
+    if array[start] % 5 == 0:
+        return split53(array, target=target+array[start], start=start+1)
+    if array[start] % 3 == 0:
+        return split53(array, target=target, start=start+1)
+    return split53(array, target=target+array[start], start=start+1) or split53(array, target=target, start=start+1)
+print(split53([2,4,1,5]))
