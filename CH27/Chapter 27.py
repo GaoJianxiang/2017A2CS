@@ -54,34 +54,8 @@ class CD(LibraryItem):
         self.__Genre = g
 
 
-
-class borrower:
-    def __init__(self,borrowerName,emailAddress,borrowerID):
-        self.__borrowerName = borrowerName
-        self.__emailAddress = emailAddress
-        self.__borrowerID = borrowerID
-        self.__itemsOnLoan = 0
-
-    def __repr__(self):
-        return "Borrower: \n Name: %s;\n Addr: %s;\n ID: %s;\n LoanNo: %d;\n" %(self.__borrowerName, self.__emailAddress, self.__borrowerID, self.__itemsOnLoan)
-
-    def GetBorrowerName(self):
-        return self.__borrowerName
-
-    def GetEmailAddress(self):
-        return self.__emailAddress
-
-    def GetBorrwerID(self):
-        return self.__borrowerID
-
-    def GetItemsOnLoan(self):
-        return self.__itemsOnLoan
-
-    def UpdateItemsOnLoan(self):
-        self.__itemsOnLoan += 1
-
-    def PrintDetails(self):
-        print(self)
+class addborrower:
+    def __init__(self,borrow):
 
 
 

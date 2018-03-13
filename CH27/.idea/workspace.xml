@@ -14,8 +14,8 @@
       <file leaf-file-name="Chapter 27.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Chapter 27.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="945">
-              <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+            <state relative-caret-position="192">
+              <caret line="36" column="33" lean-forward="true" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -43,8 +43,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Chapter 27.py" />
         <option value="$PROJECT_DIR$/Ch 27Borrower.py" />
+        <option value="$PROJECT_DIR$/Chapter 27.py" />
       </list>
     </option>
   </component>
@@ -209,8 +209,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Chapter 27.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+        <state relative-caret-position="192">
+          <caret line="36" column="33" lean-forward="true" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
           <folding />
         </state>
       </provider>
