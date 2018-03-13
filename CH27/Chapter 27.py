@@ -53,9 +53,82 @@ class CD(LibraryItem):
     def SetGenre(self, g):
         self.__Genre = g
 
+class Borrower:
+	def __init__(self,bname,email,borrowerid):
+		self.__borrowerName = bname
+		self.__emailAddress = email
+		self.__borrowerID = borrowerid
+		self.__itemsOnLoan = 0
 
-class addborrower:
-    def __init__(self,borrow):
+	def __repr__(self):
+		return (self.__borrowerName, self.__emailAddress, self.__borrowerID, self.__itemsOnLoan)
+	def GetBorrowerName(self):
+		return self.__borrowerName
+
+	def GetEmailAddress(self):
+		return self.__emailAddress
+
+	def GetBorrwerID(self):
+		return self.__borrowerID
+
+	def GetItemsOnLoan(self):
+		return self.__itemsOnLoan
+
+	def UpdateItemsOnLoan(self):
+		self.__itemsOnLoan += 1
+
+	def PrintDetails(self):
+		print(self.__borrowerName, self.__borrowerID,self.__emailAddress,self.__itemsOnLoan)
+
+def menu():
+    print('1 - Add a new borrower')
+    print('2 - Add a new book')
+    print('3 - Add a new CD')
+    print('4 - Borrow book')
+    print('5 - Return book')
+    print('6 - Borrow CD')
+    print('7 - Return CD')
+    print('8 - Request book')
+    print('9 - Print all details')
+    print('99 - Exit program')
+    print
+    print('Enter your menu choice: ')
+
+def main():
+    Finish= False
+    nextborrowerid=1
+    nextbookid=1
+    nextcdid=1
+
+    while Finish ==False:
+        menu()
+        menuchoice = int(input())
+        if menuchoice == 1:
+            bname = input('name:')
+            email = input('email address:')
+            borrowerid = nextborrowerid
+            nextborrowerid = nextborrowerid+1
+            borrower = Borrower(bname,email,borrowerid)
+        elif menuchoice == 2:
+            title=input('title:')
+            author = input('author:')
+            itemid=nextbookid
+            nextbookid = nextbookid+1
+            book= Book(title,author,itemid)
+        elif menuchoice == 3:
+            title = input('title:')
+            artist = input('artist:')
+            itemid = nextcdid
+            nextcdid = nextcdid + 1
+            cd = CD(title, artist, itemid)
+        elif menuchoice == 4:
+            borrowerid = input('Borrower ID:')
+            itemid = input('book id:')
+            Book.Requestby(itemid,borrower)
+
+
+
+
 
 
 
