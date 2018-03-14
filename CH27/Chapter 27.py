@@ -1,130 +1,188 @@
 import datetime
 class LibraryItem:
-    def __init__(self, t, a, i):
-        self.__Title = t
-        self.__Author__Artist = a
-        self.__ItemID = i
+    def __init__(self,tittle, author, itemID,BorrowerID):
+        self.__Tittle = tittle
+        self.__Author__Artist = author
+        self.__ItemID = itemID
         self.__OnLoan = False
+        self.__BorrowerID = BorrowerID
+
         self.__DueDate = datetime.date.today()
-        self.__BorrowerID = None
+
+    def GetAuthor(self):
+        return(self.__Author__Artist)
+
+    def GetItem(self):
+        return(self.__ItemID)
+
+    def GetLoan(self):
+        return (self.__OnLoan)
+
+    def GetBorrowerID(self):
+        return(self.__BorrowerID)
+
+    def GetDuedate(self):
+        return (self.__DueDate)
 
     def GetTitle(self):
-        return(self.__Title)
+        return(self.__Tittle)
 
-    def Borrowing(self):
-        self.__OnLoan = True
-        self.__DueDate = self.__DueDate + datetime.timedelta(weeks=3)
+    def Borrowing(self,itemID,x):
+        if x.GetItemsOnLoan() < 5:
+            self.__OnLoan = True
+            self.__BorrowerID = x.GetBorrowerID()
+            self.__DueDate = self.__DueDate + datetime.timedelta(weeks=3)
+            x.update(1)
+        else:
+            print('too many books on loan')
 
-    def Returning(self):
+
+
+    def Returnning(self,itemID,x):
         self.__OnLoan = False
+        x.update(-1)
 
     def PrintDetails(self):
-        print(self.__Title,'; ',self.__Author__Artist,';', end='')
-        print(self.__ItemID,';',self.__OnLoan,';',self.__DueDate)
+        print(self.__IsRequested)
+
+
 
 class Book(LibraryItem):
-    def __init__(self, t, a, i):
-        LibraryItem.__init__(self, t, a, i)
+    def __init__(self,tittle,author,itemID):
+        LibraryItem.__init__(self,tittle,author, itemID)
         self.__IsRequested = False
-        self.__RequestedBy = None
+        self.__RequestedBy = 0
+
     def GetIsRequested(self):
         return(self.__IsRequested)
 
-    def SetIsREquested(self):
-        self.__IsRequested = True
+    def GetRequestBy(self):
+        return(self.__IsRequested)
 
-    def RequestBy(self):
-        return self.__RequestedBy
+    def SetIsRequested(self,itemID,x):
+        self.__IsRequested = True
+        self.__RequestedBy = x.GetBorrowerID()
 
     def PrintDetails(self):
-        print('book details')
+        print('Book Details: ')
         LibraryItem.PrintDetails(self)
-        print(self.__IsRequested,self.__RequestedBy)
-
+        print(self.__IsRequested,';',self.__RequestedBy)
 
 class CD(LibraryItem):
-    def __init__(self, t, a, i):
-        LibraryItem.__init__(self, t, a, i)
+    def __init__(self,tittle,author,itemID):
+        LibraryItem.__init__(self,tittle,author,itemID)
         self.__Genre = ""
 
     def GetGenre(self):
         return(self.__Genre)
 
-    def SetGenre(self, g):
+    def SetGenre(self,g):
         self.__Genre = g
 
-class Borrower:
-	def __init__(self,bname,email,borrowerid):
-		self.__borrowerName = bname
-		self.__emailAddress = email
-		self.__borrowerID = borrowerid
-		self.__itemsOnLoan = 0
+    def PrintDetails(self):
+        print("CD Details: ")
+        LibraryItem.PrintDetails(self)
+        print(self.__Genre)
 
-	def __repr__(self):
-		return (self.__borrowerName, self.__emailAddress, self.__borrowerID, self.__itemsOnLoan)
-	def GetBorrowerName(self):
-		return self.__borrowerName
 
-	def GetEmailAddress(self):
-		return self.__emailAddress
+class Borrower(LibraryItem):
+    def __init__(self,BorrowerID,email,BorrowerName):
+        self.__BorrowerID = BorrowerID
+        self.__email = email
+        self.__BorrowerName = BorrowerName
+        self.__itemsOnloan = 0
 
-	def GetBorrwerID(self):
-		return self.__borrowerID
+    def __repr__(self):
+        return ("Borrower: \n Name: %s;\n Addr: %s;\n ID: %s;\n LoanNo: %d;\n")%(self.__borrowerName, self.__emailAddress, self.__borrowerID, self.__itemsOnLoan)
 
-	def GetItemsOnLoan(self):
-		return self.__itemsOnLoan
+    def GetBorrowerName(self):
+        return self.__BorrowerName
 
-	def UpdateItemsOnLoan(self):
-		self.__itemsOnLoan += 1
+    def GetBorrowerID(self):
+        return self.__BorrowerID
 
-	def PrintDetails(self):
-		print(self.__borrowerName, self.__borrowerID,self.__emailAddress,self.__itemsOnLoan)
+    def GetEmailAddress(self):
+        return self.__email
 
-def menu():
-    print('1 - Add a new borrower')
-    print('2 - Add a new book')
-    print('3 - Add a new CD')
-    print('4 - Borrow book')
-    print('5 - Return book')
-    print('6 - Borrow CD')
-    print('7 - Return CD')
-    print('8 - Request book')
-    print('9 - Print all details')
-    print('99 - Exit program')
-    print
-    print('Enter your menu choice: ')
+    def GetItemsOnLoan(self):
+        return self.__itemsOnloan
+
+    def update(self, BorrowerName):
+        self.__itemsOnloan = self.__itemsOnloan + BorrowerName
+
+    def PrintDetails(self):
+        print("Details of borrower: ")
+        print(self.__BorrowerName,';',self.__BorrowerID,';',end='')
+        print(self.__email,';',self.__itemsOnloan)
+
+# Display Menu
+def DisplayMenu():
+    print('1, Add a new borrower')
+    print('2, Add a new book')
+    print('3, Add a new CD')
+    print('4, Borrow book')
+    print('5, Return book')
+    print('6, Borrow CD')
+    print('7, Return CD')
+    print('8, Request book')
+    print('9, Print all details')
+    print('10, Exit program')
 
 def main():
-    Finish= False
-    nextborrowerid=1
-    nextbookid=1
-    nextcdid=1
+    Finish = False
+    NextBorrowerID = 1
+    NextBookID = 1
+    NextCDID = 1
 
-    while Finish ==False:
-        menu()
-        menuchoice = int(input())
-        if menuchoice == 1:
-            bname = input('name:')
-            email = input('email address:')
-            borrowerid = nextborrowerid
-            nextborrowerid = nextborrowerid+1
-            borrower = Borrower(bname,email,borrowerid)
-        elif menuchoice == 2:
-            title=input('title:')
-            author = input('author:')
-            itemid=nextbookid
-            nextbookid = nextbookid+1
-            book= Book(title,author,itemid)
-        elif menuchoice == 3:
-            title = input('title:')
-            artist = input('artist:')
-            itemid = nextcdid
-            nextcdid = nextcdid + 1
-            cd = CD(title, artist, itemid)
-        elif menuchoice == 4:
-            borrowerid = input('Borrower ID:')
-            itemid = input('book id:')
-            Book.Requestby(itemid,borrower)
+    while Finish == False:
+        DisplayMenu()
+        MenuChoice = int(input())
+        if MenuChoice == 1:
+            BName = input('Name: ')
+            Email = input('email address: ')
+            BorrowerID = NextBorrowerID
+            NextBorrowerID += 1
+            Borrower = Borrower(BorrowerID, Email, BName)
+
+        elif MenuChoice == 2:
+            Tittle = input("Tittle: ")
+            Author = input('Author: ')
+            ItemID = NextBookID
+            NextBookID += 1
+            Book = Book(Tittle,Author,ItemID)
+
+        elif MenuChoice == 3:
+            Tittle = input('Tittle: ')
+            Artist = ('Artist: ')
+            ItemID = NextCDID
+            NextCDID += 1
+            CD = CD(Tittle,Artist,ItemID)
+
+        elif MenuChoice == 4:
+            BorrowerID = input('Borrower: ')
+            Email = input('Email: ')
+            ItemID = input('Book ID: ')
+            Book.Borrowing(ItemID, BorrowerID)
+
+        elif MenuChoice == 5:
+            BorrowerID = input('Borrower ID: ')
+            ItemID = input('Book ID: ')
+            Book.Returnning (ItemID,BorrowerID)
+
+        elif MenuChoice == 6:
+            BorrowerID = input('Borrower ID: ')
+            ItemID = input('CD ID: ')
+            CD.Borrowing(ItemID,BorrowerID)
+
+        elif MenuChoice == 7:
+            BorrowerID = input('Borrower ID: ')
+            ItemID = input('CD ID: ')
+            CD.Returnning (ItemID,BorrowerID)
+
+        elif MenuChoice == 8:
+            BorrowerID = input('Borrower ID')
+            ItemID = input('Book ID: ')
+            Book.SetIsRequested(ItemID,BorrowerID)
 
 
 
@@ -132,6 +190,3 @@ def main():
 
 
 
-B = Book("bitch","ken",11)
-
-B.PrintDetails()
