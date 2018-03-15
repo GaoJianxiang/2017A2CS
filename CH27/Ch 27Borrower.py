@@ -28,3 +28,15 @@ class borrower:
 B = borrower()
 B.UpdateItemsOnLoan()
 print(B)
+
+
+def DetermineSalary(salary):
+	if salary > 50:
+		if salary >= 90:
+			return ('Project Manager')
+		elif salary < 90 and salary >70:
+			return ('Consultant')
+		else:
+			return ('Lead Developer')
+	return('Manager')
+
